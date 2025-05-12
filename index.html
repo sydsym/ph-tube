@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--tailwind and daisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
     <title>PH Tube</title>
   </head>
-  <body>
-    <header></header>
-    <body></body>
+  <body class="p-2 md:p-3 lg:p-5">
+    <header>
+        <nav class="flex flex-col sm:flex-row gap-5 justify-between items-center">
+            <div>
+                <img src="assets/Logo.png" class="h-10" alt="">
+            </div>
+            <div>
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                      </g>
+                    </svg>
+                    <input type="search" class="grow" placeholder="Search" />
+                  </label>
+            </div>
+            <div>
+                <button class="btn">Sort</button>
+            </div>
+        </nav>
+        <hr class="h-[1px] border-gray-300 m-5">
+    </header>
+    <main></main>
     <footer></footer>
   </body>
 </html>
