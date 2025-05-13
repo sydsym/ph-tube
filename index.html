@@ -5,45 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--tailwind and daisyUI -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <!-- fontawesome kit -->
+     <script src="https://kit.fontawesome.com/e60a6371cc.js" crossorigin="anonymous"></script>
 
     <title>PH Tube</title>
   </head>
   <body class="p-2 md:p-3 lg:p-5">
     <header>
-        <nav class="flex flex-col sm:flex-row gap-5 justify-between items-center">
-            <div>
-                <img src="assets/Logo.png" class="h-10" alt="">
-            </div>
-            <div>
-                <label class="input">
-                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <g
-                        stroke-linejoin="round"
-                        stroke-linecap="round"
-                        stroke-width="2.5"
-                        fill="none"
-                        stroke="currentColor"
-                      >
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.3-4.3"></path>
-                      </g>
-                    </svg>
-                    <input type="search" class="grow" placeholder="Search" />
-                  </label>
-            </div>
-            <div>
-                <button class="btn">Sort</button>
-            </div>
-        </nav>
-        <hr class="h-[1px] border-gray-300 m-5">
+      <nav class="flex flex-col sm:flex-row gap-5 justify-between items-center">
+        <div>
+          <img src="assets/Logo.png" class="h-10" alt="" />
+        </div>
+        <div>
+          <label class="input">
+            <svg
+              class="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input type="search" class="grow" placeholder="Search" />
+          </label>
+        </div>
+        <div>
+          <button class="btn">Sort</button>
+        </div>
+      </nav>
+      <hr class="h-[1px] border-gray-300 m-5" />
     </header>
     <main>
-        <div class="category-container flex flex-col sm:flex-row gap-5 justify-center" id="category-container">
-          
-        </div>
+      <!-- category navigation -->
+      <div
+        class="category-container flex flex-col sm:flex-row gap-3 sm:gap-5 md:gap-10 justify-center"
+        id="category-container"
+      ></div>
+
+      <!-- videos -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 p-2 md:p-3 lg:p-5"
+        id="video-container"
+      >
+        <!-- <div class="card shadow-sm">
+          <figure class="relative">
+            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" />
+            <p class="absolute bottom-2 right-2 bg-[rgba(0,0,0,0.5)] text-white p-1 rounded-sm text-sm">absolute</p>
+          </figure>
+          <div class="card-body">
+            <div class="flex flex-row gap-3">
+              <img class="h-[50px] rounded-full" src="https://i.ibb.co/D9wWRM6/olivia.jpg">
+              <div class="w-5/6">
+                <h2 class="font-bold mb-2">
+                  Building a Winning UX Strategy Using the Kano Model
+                </h2>
+                <p class="text-gray-500">autor name <span class="text-blue-700"><i class="fa-solid fa-circle-check"></i></span></p>
+                <p class="text-gray-500">10k views</p>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
     </main>
     <footer></footer>
     <script src="scripts/app.js"></script>
