@@ -1,4 +1,3 @@
-
 const loadCategories = async () => {
   const response = await fetch(
     `https://openapi.programming-hero.com/api/phero-tube/categories`
@@ -9,7 +8,7 @@ const loadCategories = async () => {
 };
 
 const showCategories = (categories) => {
-const categoryContainer = document.getElementById("category-container");
+  const categoryContainer = document.getElementById("category-container");
   categories.forEach((item) => {
     const button = document.createElement("button");
     button.className = "btn";
@@ -32,6 +31,7 @@ const loadVideos = async () => {
   const noVideoContainer = document.getElementById("no-video-container");
   noVideoContainer.classList.add("hidden");
   try {
+    showSpinner();
     const response = await fetch(
       `https://openapi.programming-hero.com/api/phero-tube/videos`
     );
@@ -46,6 +46,8 @@ const loadVideos = async () => {
     }
   } catch (error) {
     console.log("failed to load. Error:", error.message);
+  } finally{
+    hideSpinner();
   }
 };
 
@@ -71,28 +73,39 @@ const getTime = (seconds) => {
   return (time = result.join(" ") + " ago");
 };
 
-const noVideo = ()=>{
+const noVideo = () => {
   const videoContainer = document.getElementById("video-container");
-      const noVideoContainer = document.getElementById("no-video-container");
-      noVideoContainer.classList.remove("hidden");
-      videoContainer.innerHTML = "";
-      noVideoContainer.innerHTML = "";
-      const noVideoPage = document.createElement("div");
-      noVideoPage.className =
-        "h-[40vh] flex flex-col justify-center items-center";
-      noVideoPage.innerHTML = `
+  const noVideoContainer = document.getElementById("no-video-container");
+  noVideoContainer.classList.remove("hidden");
+  videoContainer.innerHTML = "";
+  noVideoContainer.innerHTML = "";
+  const noVideoPage = document.createElement("div");
+  noVideoPage.className = "h-[40vh] flex flex-col justify-center items-center";
+  noVideoPage.innerHTML = `
       <img src="assets/icon.png" class="w-40 block mx-auto" />
         <h2 class="font-bold text-2xl text-center mx-auto w-80"> Oops!! Sorry, There is no content here </h2>
       `;
-      noVideoContainer.appendChild(noVideoPage);
-}
+  noVideoContainer.appendChild(noVideoPage);
+};
 
 const isActiveBtn = (id) => {
   const activeBtn = document.getElementsByClassName("btn-error");
-    if(activeBtn.length > 0) activeBtn[0].classList.remove('btn-error');
+  if (activeBtn.length > 0) activeBtn[0].classList.remove("btn-error");
   const clickedBtn = document.getElementById(id);
   clickedBtn.classList.add("btn-error");
 };
+
+const showSpinner = ()=> {
+  const spinner = document.getElementById('spinner');
+  spinner.classList.add('flex');
+  spinner.classList.remove('hidden');
+}
+
+const hideSpinner = () => {
+  const spinner = document.getElementById('spinner');
+  spinner.classList.add('hidden');
+  spinner.classList.remove("flex");
+}
 
 const showVideos = (videos) => {
   const videoContainer = document.getElementById("video-container");
@@ -139,57 +152,48 @@ const loadVidByCategory = async (categoryId) => {
   const noVideoContainer = document.getElementById("no-video-container");
   noVideoContainer.classList.add("hidden");
   try {
+    showSpinner();
     const response = await fetch(
       `https://openapi.programming-hero.com/api/phero-tube/category/${categoryId}`
     );
     const data = await response.json();
     if (!data.status) {
-      // const videoContainer = document.getElementById("video-container");
-      // const noVideoContainer = document.getElementById("no-video-container");
-      // noVideoContainer.classList.remove("hidden");
-      // videoContainer.innerHTML = "";
-      // noVideoContainer.innerHTML = "";
-      // const noVideoPage = document.createElement("div");
-      // noVideoPage.className =
-      //   "h-[40vh] flex flex-col justify-center items-center";
-      // noVideoPage.innerHTML = `
-      // <img src="assets/icon.png" class="w-40 block mx-auto" />
-      //   <h2 class="font-bold text-2xl text-center mx-auto w-80"> Oops!! Sorry, There is no content here </h2>
-      // `;
-      // noVideoContainer.appendChild(noVideoPage);
       noVideo();
     } else {
       showVideos(data.category);
     }
   } catch (error) {
     console.log("failed to load. Error:", error);
+  } finally{
+    hideSpinner();
   }
 };
 
-const handleSearch = async()=> {
-  const searchBox = document.getElementById('search-box');
+const handleSearch = async () => {
+  const searchBox = document.getElementById("search-box");
   const searchText = searchBox.value;
-  const activeBtn = document.getElementsByClassName('btn-error');
-  if(activeBtn.length > 0) activeBtn[0].classList.remove('btn-error');
+  const activeBtn = document.getElementsByClassName("btn-error");
+  if (activeBtn.length > 0) activeBtn[0].classList.remove("btn-error");
   const noVideoContainer = document.getElementById("no-video-container");
   noVideoContainer.classList.add("hidden");
-  
 
-  try{
-    const response = await fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`);
+  try {
+    showSpinner();
+    const response = await fetch(
+      `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`
+    );
     const data = await response.json();
-    if(data.videos.length > 0){
-      showVideos(data.videos)
-    }
-    else{
+    if (data.videos.length > 0) {
+      showVideos(data.videos);
+    } else {
       noVideo();
     }
-    
+  } catch (error) {
+    console.log("Error loading content. Error:", error.message);
+  } finally{
+    hideSpinner();
   }
-  catch(error){
-    console.log("Error loading content. Error:", error.message)
-  }
-}
+};
 
 loadCategories();
 loadVideos();
