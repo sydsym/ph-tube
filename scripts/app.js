@@ -1,3 +1,4 @@
+const baseUrl = 'https://openapi.programming-hero.com/api/phero-tube/';
 const loadCategories = async () => {
   const response = await fetch(
     `https://openapi.programming-hero.com/api/phero-tube/categories`
@@ -110,6 +111,7 @@ const hideSpinner = () => {
 const showVideos = (videos) => {
   const videoContainer = document.getElementById("video-container");
   videoContainer.innerHTML = "";
+  
   videos.forEach((video) => {
     const videoCard = document.createElement("div");
     videoCard.className = "card shadow-sm";
@@ -192,6 +194,7 @@ const handleSearch = async () => {
     console.log("Error loading content. Error:", error.message);
   } finally{
     hideSpinner();
+    searchBox.value = '';
   }
 };
 
