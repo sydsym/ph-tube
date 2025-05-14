@@ -1,3 +1,4 @@
+//get tiem noob
 // const getTime = (seconds) =>{
 //     let mins, hour, day, month, year, time;
 
@@ -28,26 +29,26 @@
 // };
 
 
-// getTime(60)
+// get time Professional
 
-const getTime = (seconds)=>{
-    const units = [
-        {label:'y', seconds:60*60*24*365},
-        {label:'m', seconds:60*60*24*30},
-        {label:'d', seconds:60*60*24},
-        {label:'h', seconds:60*60},
-        {label:'min', seconds:60},
-        {label:'sec', seconds:1}
-    ];
-    let remaining = seconds;
-    let result = [];
-    for(const unit of units){
-        const count = Math.floor(remaining / unit.seconds);
-        if(count > 0){
-            result.push(count + unit.label);
-            remaining %= unit.seconds; 
-        }
-        if(result.length === 2) break;
-    }
-    return time = result.join(" ") + " ago";
-};
+// const getTime = (seconds)=>{
+//     const units = [
+//         {label:'y', seconds:60*60*24*365},
+//         {label:'m', seconds:60*60*24*30},
+//         {label:'d', seconds:60*60*24},
+//         {label:'h', seconds:60*60},
+//         {label:'min', seconds:60},
+//         {label:'sec', seconds:1}
+//     ];
+//     let remaining = seconds;
+//     let result = [];
+//     for(const unit of units){
+//         const count = Math.floor(remaining / unit.seconds);
+//         if(count > 0){
+//             result.push(count + unit.label);
+//             remaining %= unit.seconds; 
+//         }
+//         if(result.length === 2) break;
+//     }
+//     return time = result.join(" ") + " ago";
+// };
