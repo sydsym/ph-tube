@@ -38,9 +38,28 @@ const loadVideos = async (category = "") => {
   }
 };
 
-const getTime = (seconds) =>{
-  
+const getTime = (seconds)=>{
+    const units = [
+        {label:'y', seconds:60*60*24*365},
+        {label:'m', seconds:60*60*24*30},
+        {label:'d', seconds:60*60*24},
+        {label:'h', seconds:60*60},
+        {label:'min', seconds:60},
+        {label:'sec', seconds:1}
+    ];
+    let remaining = seconds;
+    let result = [];
+    for(const unit of units){
+        const count = Math.floor(remaining / unit.seconds);
+        if(count > 0){
+            result.push(count + unit.label);
+            remaining %= unit.seconds; 
+        }
+        if(result.length === 2) break;
+    }
+    return time = result.join(" ") + " ago";
 };
+
 const showVideos = (videos) => {
   videos.forEach((video) => {
     console.log(video)
@@ -49,8 +68,8 @@ const showVideos = (videos) => {
     videoCard.className = "card shadow-sm";
     videoCard.innerHTML = `
     <figure class="relative">
-            <img class="content-cover h-[200px]" src="${video.thumbnail}" />
-            <p class="absolute bottom-2 right-2 bg-[rgba(0,0,0,0.5)] text-white p-1 rounded-sm text-sm">absolute</p>
+            <img class="w-full content-cover h-[200px]" src="${video.thumbnail}" />
+            <p class="absolute ${video.others.posted_date ? "" : "hidden"} bottom-2 right-2 bg-[rgba(0,0,0,0.5)] text-white p-1 rounded-sm text-sm">${getTime(video.others?.posted_date)}</p>
           </figure>
           <div class="card-body">
             <div class="flex flex-row gap-3">
