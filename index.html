@@ -13,13 +13,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- fontawesome kit -->
-     <script src="https://kit.fontawesome.com/e60a6371cc.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/e60a6371cc.js"
+      crossorigin="anonymous"
+    ></script>
 
     <title>PH Tube</title>
   </head>
   <body class="w-11/12 mx-auto">
     <header>
-      <nav class="flex flex-col sm:flex-row gap-5 justify-between items-center py-5">
+      <nav
+        class="flex flex-col sm:flex-row gap-5 justify-between items-center py-5"
+      >
         <div>
           <img src="assets/Logo.png" class="h-10" alt="" />
         </div>
@@ -41,7 +46,14 @@
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input type="search" class="grow" placeholder="Search" id="search-box" name="search-input"/> <button id="search-btn" onclick="handleSearch()">Search</button>
+            <input
+              type="search"
+              class="grow"
+              placeholder="Search"
+              id="search-box"
+              name="search-input"
+            />
+            <button id="search-btn" onclick="handleSearch()">Search</button>
           </label>
         </div>
         <div>
@@ -57,18 +69,37 @@
         id="category-container"
       >
         <button id="all-btn" class="btn" onclick="loadVideos()">All</button>
-      </div> 
+      </div>
 
       <!-- videos -->
-       <div class="h-[40vh] w-full flex justify-center items-center" id="spinner">
+      <div
+        class="h-[40vh] w-full flex justify-center items-center"
+        id="spinner"
+      >
         <span class="loading loading-infinity loading-xl"></span>
-       </div>
+      </div>
       <div
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 p-2 md:p-3 lg:p-5"
         id="video-container"
-      >
-      </div>
+      ></div>
       <div id="no-video-container" class="hidden"></div>
+      <!-- modal -->
+      <dialog id="details-modal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <div id="modal-content"></div>
+          <div
+            class="h-[40vh] w-full flex justify-center items-center"
+            id="spinner2"
+          >
+            <span class="loading loading-infinity loading-xl"></span>
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn" id="modal-close">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </main>
     <footer></footer>
     <script src="scripts/app.js"></script>

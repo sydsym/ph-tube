@@ -1,8 +1,6 @@
-const baseUrl = 'https://openapi.programming-hero.com/api/phero-tube/';
+const baseUrl = "https://openapi.programming-hero.com/api/phero-tube/";
 const loadCategories = async () => {
-  const response = await fetch(
-    `https://openapi.programming-hero.com/api/phero-tube/categories`
-  );
+  const response = await fetch(`${baseUrl}categories`);
   const data = await response.json();
   showCategories(data.categories);
   return;
@@ -33,9 +31,7 @@ const loadVideos = async () => {
   noVideoContainer.classList.add("hidden");
   try {
     showSpinner();
-    const response = await fetch(
-      `https://openapi.programming-hero.com/api/phero-tube/videos`
-    );
+    const response = await fetch(`${baseUrl}videos`);
 
     if (!response.status) {
       throw new Error(`HTTP error! Status:${response.status}`);
@@ -47,7 +43,7 @@ const loadVideos = async () => {
     }
   } catch (error) {
     console.log("failed to load. Error:", error.message);
-  } finally{
+  } finally {
     hideSpinner();
   }
 };
@@ -96,25 +92,42 @@ const isActiveBtn = (id) => {
   clickedBtn.classList.add("btn-error");
 };
 
-const showSpinner = ()=> {
-  const spinner = document.getElementById('spinner');
-  spinner.classList.add('flex');
-  spinner.classList.remove('hidden');
-}
+const showSpinner = () => {
+  const spinner = document.getElementById("spinner");
+  spinner.classList.add("flex");
+  spinner.classList.remove("hidden");
+};
 
 const hideSpinner = () => {
-  const spinner = document.getElementById('spinner');
-  spinner.classList.add('hidden');
+  const spinner = document.getElementById("spinner");
+  spinner.classList.add("hidden");
   spinner.classList.remove("flex");
-}
+};
+
+const showSpinner2 = () => {
+  const spinner = document.getElementById("spinner2");
+  if (spinner) {
+    spinner.classList.add("flex");
+    spinner.classList.remove("hidden");
+  }
+};
+
+const hideSpinner2 = () => {
+  const spinner = document.getElementById("spinner2");
+  if (spinner) {
+    spinner.classList.add("hidden");
+    spinner.classList.remove("flex");
+  }
+};
 
 const showVideos = (videos) => {
   const videoContainer = document.getElementById("video-container");
   videoContainer.innerHTML = "";
-  
+
   videos.forEach((video) => {
     const videoCard = document.createElement("div");
     videoCard.className = "card shadow-sm";
+    videoCard.id = video.video_id;
     videoCard.innerHTML = `
     <figure class="relative">
             <img class="w-full object-cover h-[200px]" src="${
@@ -146,6 +159,7 @@ const showVideos = (videos) => {
           </div>
     `;
     videoContainer.appendChild(videoCard);
+    videoCard.addEventListener("click", () => showDetails(video.video_id));
   });
 };
 
@@ -155,9 +169,7 @@ const loadVidByCategory = async (categoryId) => {
   noVideoContainer.classList.add("hidden");
   try {
     showSpinner();
-    const response = await fetch(
-      `https://openapi.programming-hero.com/api/phero-tube/category/${categoryId}`
-    );
+    const response = await fetch(`${baseUrl}category/${categoryId}`);
     const data = await response.json();
     if (!data.status) {
       noVideo();
@@ -166,7 +178,7 @@ const loadVidByCategory = async (categoryId) => {
     }
   } catch (error) {
     console.log("failed to load. Error:", error);
-  } finally{
+  } finally {
     hideSpinner();
   }
 };
@@ -181,9 +193,7 @@ const handleSearch = async () => {
 
   try {
     showSpinner();
-    const response = await fetch(
-      `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`
-    );
+    const response = await fetch(`${baseUrl}videos?title=${searchText}`);
     const data = await response.json();
     if (data.videos.length > 0) {
       showVideos(data.videos);
@@ -192,11 +202,43 @@ const handleSearch = async () => {
     }
   } catch (error) {
     console.log("Error loading content. Error:", error.message);
-  } finally{
+  } finally {
     hideSpinner();
-    searchBox.value = '';
+    searchBox.value = "";
   }
+};
+
+const showDetails = async (videoId) => {
+  
+  const detailsModal = document.getElementById("details-modal");
+  detailsModal.showModal();
+  const modalContent = document.getElementById("modal-content");
+  try {
+    showSpinner2();
+    const response = await fetch(`${baseUrl}video/${videoId}`);
+    const data = await response.json();
+    const video = data.video;
+    const modalCard = document.createElement('div');
+    modalCard.innerHTML = `
+  <img class="w-10/12 object-cover m-auto block" src="${video.thumbnail}" />
+  <p>${video.description}</p>
+  `;
+    modalContent.appendChild(modalCard);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    hideSpinner2();
+  }
+  document.getElementById('modal-close').addEventListener("click", ()=> {
+    modalContent.innerHTML = '';
+    document.addEventListener("keyup", (e)=> {
+      if(e.key === 'Escape'){
+        modalContent.innerHTML = '';
+      }
+    })
+  });
 };
 
 loadCategories();
 loadVideos();
+
