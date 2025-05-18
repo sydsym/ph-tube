@@ -1,4 +1,6 @@
 const baseUrl = "https://openapi.programming-hero.com/api/phero-tube/";
+
+// loading categories dynamically
 const loadCategories = async () => {
   const response = await fetch(`${baseUrl}categories`);
   const data = await response.json();
@@ -6,6 +8,7 @@ const loadCategories = async () => {
   return;
 };
 
+//showing categories to the webpage
 const showCategories = (categories) => {
   const categoryContainer = document.getElementById("category-container");
   categories.forEach((item) => {
@@ -20,6 +23,7 @@ const showCategories = (categories) => {
   });
 };
 
+// load videos
 const loadVideos = async () => {
   const allBtn = document.getElementById("all-btn");
   allBtn.classList.add("btn-error");
@@ -48,6 +52,7 @@ const loadVideos = async () => {
   }
 };
 
+//extracting time from seconds to a readable format
 const getTime = (seconds) => {
   const units = [
     { label: "y", seconds: 60 * 60 * 24 * 365 },
@@ -70,6 +75,7 @@ const getTime = (seconds) => {
   return (time = result.join(" ") + " ago");
 };
 
+//no result page
 const noVideo = () => {
   const videoContainer = document.getElementById("video-container");
   const noVideoContainer = document.getElementById("no-video-container");
@@ -85,6 +91,7 @@ const noVideo = () => {
   noVideoContainer.appendChild(noVideoPage);
 };
 
+// checking the categories if they are active or not 
 const isActiveBtn = (id) => {
   const activeBtn = document.getElementsByClassName("btn-error");
   if (activeBtn.length > 0) activeBtn[0].classList.remove("btn-error");
@@ -92,18 +99,21 @@ const isActiveBtn = (id) => {
   clickedBtn.classList.add("btn-error");
 };
 
+//this will run spinner for videos
 const showSpinner = () => {
   const spinner = document.getElementById("spinner");
   spinner.classList.add("flex");
   spinner.classList.remove("hidden");
 };
 
+//this will close spinner for videos
 const hideSpinner = () => {
   const spinner = document.getElementById("spinner");
   spinner.classList.add("hidden");
   spinner.classList.remove("flex");
 };
 
+//spinner  for modal
 const showSpinner2 = () => {
   const spinner = document.getElementById("spinner2");
   if (spinner) {
@@ -112,6 +122,7 @@ const showSpinner2 = () => {
   }
 };
 
+//spinner for modal
 const hideSpinner2 = () => {
   const spinner = document.getElementById("spinner2");
   if (spinner) {
@@ -120,6 +131,7 @@ const hideSpinner2 = () => {
   }
 };
 
+// this will show videos to the webpage 
 const showVideos = (videos) => {
   const videoContainer = document.getElementById("video-container");
   videoContainer.innerHTML = "";
@@ -163,6 +175,7 @@ const showVideos = (videos) => {
   });
 };
 
+// this will load videos by category 
 const loadVidByCategory = async (categoryId) => {
   isActiveBtn(categoryId);
   const noVideoContainer = document.getElementById("no-video-container");
@@ -183,6 +196,7 @@ const loadVidByCategory = async (categoryId) => {
   }
 };
 
+// this will handle searches
 const handleSearch = async () => {
   const searchBox = document.getElementById("search-box");
   const searchText = searchBox.value;
@@ -208,6 +222,8 @@ const handleSearch = async () => {
   }
 };
 
+
+//this for modal and will show details of videos
 const showDetails = async (videoId) => {
   
   const detailsModal = document.getElementById("details-modal");
@@ -239,6 +255,7 @@ const showDetails = async (videoId) => {
   });
 };
 
+// calling functions
 loadCategories();
 loadVideos();
 
